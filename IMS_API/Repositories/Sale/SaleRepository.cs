@@ -31,7 +31,8 @@ namespace IMS_API.Repositories.Sale
                     response.Status = false;
                     response.ErrorMessage = "Internal Server Error.";
                     return response;
-                } else
+                }
+                else
                 {
                     record.Quantity = record.Quantity - request.QuantitySold;
                     dbContext.Products.Update(record);

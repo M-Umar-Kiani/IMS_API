@@ -17,10 +17,10 @@ namespace IMS_API.Controllers
         }
 
         [HttpGet("get-all-products-for-sale")]
-        public async Task<IActionResult> GetAllProductsForSale() 
-        { 
+        public async Task<IActionResult> GetAllProductsForSale()
+        {
             var data = await this.saleRepository.GetAllProductsForSale();
-            if (data == null) 
+            if (data == null)
             {
                 return NotFound();
             }

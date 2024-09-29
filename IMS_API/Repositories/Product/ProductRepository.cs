@@ -3,7 +3,6 @@ using IMS_API.Dtos.Product;
 using IMS_API.Helper;
 using IMS_API.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace IMS_API.Repositories.Product
 {
@@ -23,6 +22,7 @@ namespace IMS_API.Repositories.Product
             try
             {
                 var mappedData = mapper.Map<Models.Product>(request);
+                mappedData.IsDeleted = false;
                 await dbContext.Products.AddAsync(mappedData);
                 dbContext.SaveChangesAsync();
 

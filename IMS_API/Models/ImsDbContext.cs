@@ -25,24 +25,16 @@ public partial class ImsDbContext : DbContext
     {
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("product_pkey");
+            entity.HasKey(e => e.ProductId).HasName("PK__product__47027DF5EF7E3B31");
 
             entity.ToTable("product");
 
-            entity.Property(e => e.ProductId)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("product_id");
-            entity.Property(e => e.Description)
-                .HasColumnType("character varying")
-                .HasColumnName("description");
-            entity.Property(e => e.Image)
-                .HasColumnType("character varying")
-                .HasColumnName("image");
-            entity.Property(e => e.IsDeleted)
-                .HasDefaultValue(false)
-                .HasColumnName("is_deleted");
+            entity.Property(e => e.ProductId).HasColumnName("product_id");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.Image).HasColumnName("image");
+            entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasMaxLength(255)
                 .HasColumnName("name");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
@@ -50,38 +42,34 @@ public partial class ImsDbContext : DbContext
 
         modelBuilder.Entity<Purchase>(entity =>
         {
-            entity.HasKey(e => e.PurchaseId).HasName("purchase_pkey");
+            entity.HasKey(e => e.PurchaseId).HasName("PK__purchase__87071CB9B003D143");
 
             entity.ToTable("purchase");
 
-            entity.Property(e => e.PurchaseId)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("purchase_id");
+            entity.Property(e => e.PurchaseId).HasColumnName("purchase_id");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.PurchaseAmount).HasColumnName("purchase_amount");
             entity.Property(e => e.QuantityPurchase).HasColumnName("quantity_purchase");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Purchases)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("purchase_product_id_fkey");
+                .HasConstraintName("FK_Purchase_Product");
         });
 
         modelBuilder.Entity<Sale>(entity =>
         {
-            entity.HasKey(e => e.SaleId).HasName("sales_pkey");
+            entity.HasKey(e => e.SaleId).HasName("PK__sale__E1EB00B214FFD352");
 
-            entity.ToTable("sales");
+            entity.ToTable("sale");
 
-            entity.Property(e => e.SaleId)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("sale_id");
+            entity.Property(e => e.SaleId).HasColumnName("sale_id");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.QuantitySold).HasColumnName("quantity_sold");
             entity.Property(e => e.TotalPrice).HasColumnName("total_price");
 
             entity.HasOne(d => d.Product).WithMany(p => p.Sales)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("sales_product_id_fkey");
+                .HasConstraintName("FK_Sale_Product");
         });
 
         OnModelCreatingPartial(modelBuilder);

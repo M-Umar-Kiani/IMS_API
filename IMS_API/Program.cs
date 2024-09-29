@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
-builder.Services.AddDbContext<ImsDbContext>(option => option.UseNpgsql(builder.Configuration.GetConnectionString("imsConnection")));
+builder.Services.AddDbContext<ImsDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("imsConnection")));
 
 
 //AutoMapper Configuration Start
